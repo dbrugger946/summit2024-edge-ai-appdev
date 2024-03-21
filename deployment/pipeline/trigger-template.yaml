@@ -1,0 +1,26 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: train-model-template
+  namespace: tf
+spec:
+  params:
+  - name: id-edge
+    description: Identifier of target edge enviroment.
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: train-model-run-
+      spec:
+        pipelineRef:
+          name: train-model
+        params:
+        - name: s3bucket_data
+          value: $(tt.params.id-edge)-data
+        - name: s3bucket_models
+          value: $(tt.params.id-edge)-models
+        - name: s3bucket_ready
+          value: $(tt.params.id-edge)-ready
+        - name: working_dir
+          value: /data/$(tt.params.id-edge)/

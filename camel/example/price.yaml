@@ -1,0 +1,42 @@
+- route:
+    id: route-3832
+    from:
+      id: from-3426
+      uri: platform-http:/price
+      steps:
+        - removeHeaders:
+            id: removeHeaders-2555
+            pattern: "*"
+        - to:
+            id: to-7623
+            uri: http://tf-server:8501/v1/models/redbag:predict
+            # uri: https://tf-server-bmesegue-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/v1/models/redbag:predict
+        - unmarshal:
+            id: unmarshal-3788
+            json: {}
+        - setBody:
+            id: setBody-1205
+            expression:
+              simple:
+                expression: ${body[predictions][0]}
+        - choice:
+            id: choice-2177
+            otherwise:
+              id: otherwise-4434
+              steps:
+                - setBody:
+                    id: setBody-1888
+                    expression:
+                      constant:
+                        expression: '{"price":"unknown article"}'
+            when:
+              - id: when-1250
+                steps:
+                  - setBody:
+                      id: setBody-8724
+                      expression:
+                        constant:
+                          expression: '{"price":"5.99"}'
+                expression:
+                  simple:
+                    expression: ${body} == "tea-green"

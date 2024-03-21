@@ -1,0 +1,12 @@
+[
+    {
+      "item": "tea-green",
+      "label": "Green Tea",
+      "price": 2.99
+    },
+    {
+      "item": "other",
+      "label": "Other",
+      "price": "N/A"
+    }
+]
