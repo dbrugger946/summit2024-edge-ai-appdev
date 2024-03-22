@@ -39,7 +39,7 @@ Follow the main instructions (main project README)
 
   3. Use the YAML definition under:
 
-     * ../../deployment/edge/amq-broker.yaml
+     * ../../../deployment/edge/amq-broker.yaml
 
   3. Create a route by exposing the MQTT service \
      You need to ensure the HTML page can access the broker remotely via secure WebSockets.
